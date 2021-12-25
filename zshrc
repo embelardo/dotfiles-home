@@ -1,3 +1,5 @@
+# Zsh Init ####################################################################
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/miko/.oh-my-zsh"
 
@@ -11,6 +13,7 @@ source /Users/miko/.zshrc_theme
 
 plugins=(
     aliases                  # List available shortcuts grouped by plugin.
+    alias-finder             # Searches defined aliases and outputs matches.
     colored-man-pages        # Add colors to man pages.
     git
     gradle                   # This plugin adds completions and aliases for Gradle.
@@ -27,6 +30,9 @@ ZSH_COLORIZE_STYLE="solarized-dark"
 
 # Aliases #####################################################################
 
+DOTFILES=~/dev/dotfiles-home
+ZSHRC=~/.zshrc
+
 alias la='ls -la'
 alias ll='ls -l'
 alias lrt='ls -lrt'
@@ -37,23 +43,24 @@ alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
 alias bbbbb='cd ../../../../..'
 
+alias auto='cd ~/auto'
 alias dev='cd ~/dev'
 alias doc='cd ~/doc'
+alias dotfiles="cd ${DOTFILES}"
 alias downloads='cd ~/Downloads'
-alias dotfiles='cd ~/miko/dev/dotfiles-home'
-alias ref='cd ~/ref'
+alias grepo='cd ~/git-repos'
 alias pluralsight='cd ~/pluralsight'
+alias ref='cd ~/ref'
 alias workspaces='cd ~/workspaces'
 
-alias r='source ~/.zshrc'
+alias af='alias-finder --longer'
+alias h='history -E'
+alias linkm='ln -s ~/auto/makefile makefile'
+alias m='make'
+alias r="source ${ZSHRC}"
+alias wh='fc -W'
 
-# Bat #########################################################################
-
-export BAT_THEME="Solarized (dark)"
-
-# Git #########################################################################
-
-export GIT_PAGER="cat"
+alias szrc="source ${ZSHRC}"
 
 # History #####################################################################
 
@@ -78,10 +85,64 @@ unsetopt HIST_IGNORE_DUPS        # Unset option set by unknown actor
 unsetopt HIST_EXPIRE_DUPS_FIRST  # Unset option set by unknown actor
 unsetopt SHARE_HISTORY
 
+# Bat #########################################################################
+
+export BAT_THEME="Solarized (dark)"
+
+# Git #########################################################################
+
+export GIT_PAGER="cat"
+
 # Sdkman ######################################################################
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Functions ###################################################################
+
+AUTO=~/auto
+MAKEFILE=~/makefile
+ZSHRC_THEME=~/.zshrc_theme
+
+# Create hardlinks to avoid 'too many open files in system' error.
+# See https://bit.ly/3FmZJQd
+#
+init-home () {
+    if [ -d "${DOTFILES}" ]; then
+        echo "Folder ${DOTFILES} exists."
+    else
+        echo "Cloning ${DOTFILES} repo."
+        git clone https://github.com/embelardo/dotfiles-home.git ${DOTFILES}
+    fi
+
+    if [ -f "${ZSHRC}" ]; then
+        echo "File ${ZSHRC} exists."
+    else
+        echo "Creating link ${ZSHRC}."
+        ln -s ${DOTFILES}/zshrc ${ZSHRC}
+    fi
+
+    if [ -f "${ZSHRC_THEME}" ]; then
+        echo "File ${ZSHRC_THEME} exists."
+    else
+        echo "Creating link ${ZSHRC_THEME}."
+        ln -s ${DOTFILES}/zshrc_theme ${ZSHRC_THEME}
+    fi
+
+    if [ -d "${AUTO}" ]; then
+        echo "Folder ${AUTO} exists."
+    else
+        echo "Creating link ${AUTO}."
+        ln -s ${DOTFILES}/auto ${AUTO}
+    fi
+
+    if [ -f "${MAKEFILE}" ]; then
+        echo "File ${MAKEFILE} exists."
+    else
+        echo "Creating link ${MAKEFILE}."
+        ln -s ${AUTO}/makefile ${MAKEFILE}
+    fi
+}
 
 # eof #########################################################################
