@@ -34,6 +34,7 @@ DOTFILES=~/dev/dotfiles-home
 ZSHRC=~/.zshrc
 
 alias la='ls -la'
+alias lart='ls -lart'
 alias ll='ls -l'
 alias lrt='ls -lrt'
 
@@ -57,14 +58,13 @@ alias af='alias-finder --longer'
 alias h='history -E'
 alias linkm='ln -s ~/auto/makefile makefile'
 alias m='make'
-alias r="source ${ZSHRC}"
 alias wh='fc -W'
 
 alias szrc="source ${ZSHRC}"
 
 # History #####################################################################
 
-HISTORY_IGNORE="b|cd|dev|doc|downloads|dotfiles|ll|la|m|r|ref|pluralsight|workspaces"
+HISTORY_IGNORE="(b|dev|doc|downloads|dotfiles|ll*|la*|m|r|ref|pluralsight|workspaces)"
 export HISTORY_IGNORE="${HISTORY_IGNORE}"
 
 export HISTFILE=~/.zsh_history   # Name history file
@@ -75,14 +75,15 @@ export HISTTIMEFORMAT="[%F %T] " # Ex: 18.12.2021 06:49
 setopt EXTENDED_HISTORY          # Saves time command started and how long it ran
 setopt HIST_SAVE_NO_DUPS         # Do not save duplicate line more than once
 setopt HIST_FIND_NO_DUPS         # If duplicate lines saved, don't duplicate them in backward search
-setopt HIST_IGNORE_ALL_DUPS      # Disregard line if already in history
 setopt HIST_IGNORE_SPACE         # Disregard line if it begins with space
 setopt HIST_NO_STORE             # Disregard history or fc command
 setopt HIST_REDUCE_BLANKS        # Remove excess blanks before saving line
 setopt INC_APPEND_HISTORY        # Add line to history upon execution instead of upon exit
 
-unsetopt HIST_IGNORE_DUPS        # Unset option set by unknown actor
-unsetopt HIST_EXPIRE_DUPS_FIRST  # Unset option set by unknown actor
+unsetopt HIST_FIND_NO_DUPS
+unsetopt HIST_IGNORE_ALL_DUPS
+unsetopt HIST_IGNORE_DUPS
+unsetopt HIST_EXPIRE_DUPS_FIRST
 unsetopt SHARE_HISTORY
 
 # Bat #########################################################################
@@ -102,12 +103,11 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Functions ###################################################################
 
 AUTO=~/auto
+JRNL_YML=~/.config/jrnl/jrnl.yaml
 MAKEFILE=~/makefile
+TMUX_CONF=~/.tmux.conf
 ZSHRC_THEME=~/.zshrc_theme
 
-# Create hardlinks to avoid 'too many open files in system' error.
-# See https://bit.ly/3FmZJQd
-#
 init-home () {
     if [ -d "${DOTFILES}" ]; then
         echo "Folder ${DOTFILES} exists."
@@ -137,11 +137,26 @@ init-home () {
         ln -s ${DOTFILES}/auto ${AUTO}
     fi
 
+    if [ -f "${JRNL_YML}" ]; then
+        echo "File ${JRNL_YML} exists."
+    else
+        echo "Creating link ${JRNL_YML}."
+        mkdir -p ~/.config/jrnl
+        ln -s ${DOTFILES}/jrnl.yaml ${JRNL_YML}
+    fi
+
     if [ -f "${MAKEFILE}" ]; then
         echo "File ${MAKEFILE} exists."
     else
         echo "Creating link ${MAKEFILE}."
         ln -s ${AUTO}/makefile ${MAKEFILE}
+    fi
+
+    if [ -f "${TMUX_CONF}" ]; then
+        echo "File ${TMUX_CONF} exists."
+    else
+        echo "Creating link ${TMUX_CONF}."
+        ln -s ${DOTFILES}/tmux.conf ${TMUX_CONF}
     fi
 }
 
