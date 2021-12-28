@@ -7,6 +7,9 @@ help: ## Show this help
 
 # General #####################################################################
 
+sh.calendar: ## Show 2022 Calendar
+	ncal -w 2022
+
 # Depends on cloud-drive being available.
 sh.create.links: ## Create cloud links
 	ln -s ~/cloud-drive/stationhome/jrnl ~/jrnl
@@ -14,7 +17,7 @@ sh.create.links: ## Create cloud links
 	ln -s ~/cloud-drive/stationhome/pluralsight ~/pluralsight
 	ln -s ~/cloud-drive/stationhome/workspaces ~/workspaces
 
-.PHONY: sh.create.links
+.PHONY: sh.calendar sh.create.links
 
 # Git #########################################################################
 
@@ -89,7 +92,9 @@ j.show: ## Show journal from beginning (arg: name)
 	jrnl $(name) -to today
 
 j.tags.filter: ## Filter journal by tag (arg: name, tags)
-	jrnl $(name) $(tags)
+	@jrnl $(name) $(tags)
+	@echo
+	@ncal -w -A 2
 
 j.tags.list: ## List tags in journal (arg: name)
 	jrnl $(name) --tags
