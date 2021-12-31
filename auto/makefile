@@ -21,11 +21,11 @@ sh.create.links: ## Create cloud links
 
 # Git #########################################################################
 
-g.add.all: ## Git add all
-	git add --all
-
 g.add: ## Git add items (arg: files)
 	git add $(files)
+
+g.add.all: ## Git add all
+	git add --all
 
 g.commit: ## Git commit (arg: msg)
 	git commit --message '$(msg)'
@@ -33,17 +33,25 @@ g.commit: ## Git commit (arg: msg)
 g.commit.amend: ## Git commit amend
 	git commit --amend
 
+g.commit.amend.push: ## Git commit amend and push force
+	git commit --amend
+	git push --force-with-lease
+
+g.commit.push: ## Git commit and push (arg: msg)
+	git commit --message '$(msg)'
+	git push
+
 g.diff: ## Git diff
 	git diff
 
 g.log.graph: ## Git log graph
 	git log --graph
 
-g.log.short.files: ## Git log one-liners (+ time and author) and file list
-	git log --graph --pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' --stat
-
 g.log.short: ## Git log one-liners (+ time and author)
 	git log --graph --pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset'
+
+g.log.short.files: ## Git log one-liners (+ time and author) and file list
+	git log --graph --pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' --stat
 
 g.pull.rebase: ## Git pull and rebase current branch after fetch
 	git pull --rebase
@@ -72,10 +80,10 @@ g.stash.pop: ## Git stash pop
 g.status: ## Git status
 	git status
 
-.PHONY: g.add g.add.all g.commit g.commit.amend g.diff g.log.graph
-.PHONY: g.log.short.files g.log.short g.pull.rebase g.push g.push.force
-.PHONY: g.rebase.continue g.rebase.interactive g.restore.staged g.stash
-.PHONY: g.stash.pop g.status
+.PHONY: g.add g.add.all g.commit g.commit.amend g.commit.amend.push
+.PHONY: g.commit.push g.diff g.log.graph g.log.short g.log.short.files
+.PHONY: g.pull.rebase g.push g.push.force g.rebase.continue
+.PHONY: g.rebase.interactive g.restore.staged g.stash g.stash.pop g.status
 
 # jrnl ########################################################################
 

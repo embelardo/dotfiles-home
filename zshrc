@@ -56,15 +56,16 @@ alias workspaces='cd ~/workspaces'
 
 alias af='alias-finder --longer'
 alias h='history -t "%Y.%m.%d %H:%M:%S"'
+alias hr='fc -R'
+alias hw='fc -W'
 alias linkm='ln -s ~/auto/makefile makefile'
 alias m='make'
-alias wh='fc -W'
 
-alias szrc="source ${ZSHRC}"
+alias szshrc="source ${ZSHRC}"
 
 # History #####################################################################
 
-HISTORY_IGNORE="(b|cd|dev|doc|downloads|dotfiles|grepo|h|linkm|ll*|la*|m"
+HISTORY_IGNORE="(b|cd|dev|doc|downloads|dotfiles|grepo|h|hr|hw|linkm|ll*|la*|m"
 HISTORY_IGNORE="${HISTORY_IGNORE}|pluralsight|r|ref|szrc|tmp|workspaces)"
 export HISTORY_IGNORE="${HISTORY_IGNORE}"
 
