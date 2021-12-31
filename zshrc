@@ -55,7 +55,7 @@ alias ref='cd ~/ref'
 alias workspaces='cd ~/workspaces'
 
 alias af='alias-finder --longer'
-alias h='history -E'
+alias h='history -t "%Y.%m.%d %H:%M:%S"'
 alias linkm='ln -s ~/auto/makefile makefile'
 alias m='make'
 alias wh='fc -W'
@@ -64,7 +64,8 @@ alias szrc="source ${ZSHRC}"
 
 # History #####################################################################
 
-HISTORY_IGNORE="(b|dev|doc|downloads|dotfiles|ll*|la*|m|r|ref|pluralsight|workspaces)"
+HISTORY_IGNORE="(b|cd|dev|doc|downloads|dotfiles|grepo|h|linkm|ll*|la*|m"
+HISTORY_IGNORE="${HISTORY_IGNORE}|pluralsight|r|ref|szrc|tmp|workspaces)"
 export HISTORY_IGNORE="${HISTORY_IGNORE}"
 
 export HISTFILE=~/.zsh_history   # Name history file
@@ -85,6 +86,10 @@ unsetopt HIST_IGNORE_ALL_DUPS
 unsetopt HIST_IGNORE_DUPS
 unsetopt HIST_EXPIRE_DUPS_FIRST
 unsetopt SHARE_HISTORY
+
+# iTerm2 ######################################################################
+
+ source ~/.iterm2_shell_integration.zsh
 
 # Bat #########################################################################
 
