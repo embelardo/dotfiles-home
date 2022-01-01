@@ -10,6 +10,10 @@ help: ## Show this help
 sh.calendar: ## Show 2022 Calendar
 	ncal -w 2022
 
+sh.clear.scrollback: ## Clear screen and reset scrollback
+	@clear
+	@printf '\e[3J'
+
 # Depends on cloud-drive being available.
 sh.create.links: ## Create cloud links
 	ln -s ~/cloud-drive/stationhome/jrnl ~/jrnl
@@ -17,7 +21,7 @@ sh.create.links: ## Create cloud links
 	ln -s ~/cloud-drive/stationhome/pluralsight ~/pluralsight
 	ln -s ~/cloud-drive/stationhome/workspaces ~/workspaces
 
-.PHONY: sh.calendar sh.create.links
+.PHONY: sh.calendar sh.clear.scrollback sh.create.links
 
 # Git #########################################################################
 
@@ -41,17 +45,36 @@ g.commit.push: ## Git commit and push (arg: msg)
 	git commit --message '$(msg)'
 	git push
 
-g.diff: ## Git diff
+g.diff: sh.clear.scrollback ## Git diff
 	git diff
 
-g.log.graph: ## Git log graph
+g.log.graph: sh.clear.scrollback ## Git log graph (arg: limit)
+ifdef limit
+	git log --graph --max-count $(limit)
+else
 	git log --graph
+endif
 
-g.log.short: ## Git log one-liners (+ time and author)
-	git log --graph --pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset'
+g.log.short: sh.clear.scrollback ## Git log one-liners (+ time and author) (arg: limit)
+ifdef limit
+	git log --graph \
+	--pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' \
+	--max-count $(limit)
+else
+	git log --graph \
+	--pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset'
+endif
 
-g.log.short.files: ## Git log one-liners (+ time and author) and file list
-	git log --graph --pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' --stat
+g.log.short.files: sh.clear.scrollback ## Git log one-liners (+ time and author) and file list (arg: limit)
+ifdef limit
+	git log --graph \
+	--pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' \
+	--stat --max-count $(limit)
+else
+	git log --graph \
+	--pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' \
+	--stat
+endif
 
 g.pull.rebase: ## Git pull and rebase current branch after fetch
 	git pull --rebase
@@ -103,7 +126,7 @@ j.search: ## Search journal by text (arg: text)
 j.show: ## Show journal from beginning (arg: name)
 	jrnl $(name) -to today
 
-j.tags.filter: ## Filter journal by tag (arg: name, tags)
+j.tags.filter: sh.clear.scrollback ## Filter journal by tag (arg: name, tags)
 	@jrnl $(name) $(tags)
 	@echo
 	@ncal -w -A 2

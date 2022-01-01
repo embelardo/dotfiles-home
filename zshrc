@@ -53,7 +53,13 @@ alias downloads='cd ~/Downloads'
 alias grepo='cd ~/git-repos'
 alias pluralsight='cd ~/pluralsight'
 alias ref='cd ~/ref'
+alias tmp='cd ~/tmp'
 alias workspaces='cd ~/workspaces'
+
+alias ctfiyh='cd ~/dev/code-that-fits-in-your-head'
+alias corejava='cd ~/dev/core-java'
+alias gopl='cd ~/dev/gopl.io'
+alias hol='cd ~/dev/hotspot-optimizer-library'
 
 alias af='alias-finder --longer'
 alias h='history -t "%Y.%m.%d %H:%M:%S"'
