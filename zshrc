@@ -12,11 +12,12 @@ ZSH_THEME="spaceship"
 source /Users/miko/.zshrc_theme
 
 plugins=(
-    aliases                  # List available shortcuts grouped by plugin.
-    alias-finder             # Searches defined aliases and outputs matches.
+    aliases                  # List available aliases grouped by plugin.
+    alias-finder             # Search defined aliases and output matches.
     colored-man-pages        # Add colors to man pages.
-    git
-    gradle                   # This plugin adds completions and aliases for Gradle.
+    dirhistory               # Add shortcuts to navigate folder history and hierarchy.
+    git                      # Add git aliases and functions.
+    gradle                   # Add completions and aliases for Gradle.
     zsh-autosuggestions      # Fish-like fast/unobtrusive autosuggestions for zsh.
     zsh-syntax-highlighting  # Fish-like syntax highlighting for zsh.
 )
@@ -88,9 +89,13 @@ unsetopt HIST_IGNORE_DUPS
 unsetopt HIST_EXPIRE_DUPS_FIRST
 unsetopt SHARE_HISTORY
 
-# iTerm2 ######################################################################
+# Compleat ####################################################################
 
- source ~/.iterm2_shell_integration.zsh
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
+
+source ~/.bash_completion.d/compleat_setup
 
 # Bat #########################################################################
 
@@ -99,6 +104,10 @@ export BAT_THEME="Solarized (dark)"
 # Git #########################################################################
 
 export GIT_PAGER="cat"
+
+# iTerm2 ######################################################################
+
+source ~/.iterm2_shell_integration.zsh
 
 # Sdkman ######################################################################
 
@@ -109,6 +118,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Functions ###################################################################
 
 AUTO=~/auto
+COMPLEAT=~/.compleat
 JRNL_YML=~/.config/jrnl/jrnl.yaml
 MAKEFILE=~/makefile
 TMUX_CONF=~/.tmux.conf
@@ -141,6 +151,13 @@ init-home () {
     else
         echo "Creating link ${AUTO}."
         ln -s ${DOTFILES}/auto ${AUTO}
+    fi
+
+    if [ -f "${COMPLEAT}" ]; then
+        echo "File ${COMPLEAT} exists."
+    else
+        echo "Creating link ${COMPLEAT}."
+        ln -s ${DOTFILES}/compleat ${COMPLEAT}
     fi
 
     if [ -f "${JRNL_YML}" ]; then

@@ -68,6 +68,9 @@ g.rebase.continue: ## Git rebase continue
 g.rebase.interactive: ## Git rebase interactive (arg: commit=[3e1aa46])
 	git rebase --interactive $(commit)
 
+g.remote.show.origin: ## Show remote origin of this repo
+	git remote show origin
+
 g.restore.staged: ## Move staged files back to working directory (arg: files)
 	git restore --staged $(files)
 
@@ -83,7 +86,8 @@ g.status: ## Git status
 .PHONY: g.add g.add.all g.commit g.commit.amend g.commit.amend.push
 .PHONY: g.commit.push g.diff g.log.graph g.log.short g.log.short.files
 .PHONY: g.pull.rebase g.push g.push.force g.rebase.continue
-.PHONY: g.rebase.interactive g.restore.staged g.stash g.stash.pop g.status
+.PHONY: g.rebase.interactive g.remote.show.origin g.restore.staged g.stash
+.PHONY: g.stash.pop g.status
 
 # jrnl ########################################################################
 
