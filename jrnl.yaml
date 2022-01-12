@@ -10,8 +10,8 @@ encrypt: false
 highlight: true
 indent_character: '|'
 journals:
-  default: /Users/miko/cloud-drive/stationhome/jrnl/home.jrnl
-  library: /Users/miko/cloud-drive/stationhome/jrnl/library.jrnl
+  default: /Users/miko/cloud-drive/stationhome/jrnl/library.jrnl
+  home: /Users/miko/cloud-drive/stationhome/jrnl/home.jrnl
   work: /Users/miko/cloud-drive/stationhome/jrnl/work.jrnl
 linewrap: 120
 tagsymbols: '@'

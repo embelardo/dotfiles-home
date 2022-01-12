@@ -113,7 +113,7 @@ export GIT_PAGER="cat"
 
 # iTerm2 ######################################################################
 
-source ~/.iterm2_shell_integration.zsh
+#source ~/.iterm2_shell_integration.zsh
 
 # Sdkman ######################################################################
 
