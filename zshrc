@@ -121,6 +121,17 @@ export GIT_PAGER="cat"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# PATH ########################################################################
+
+MIKO_LOCAL_BIN=~/.local/bin
+if echo ${PATH} | grep ${MIKO_LOCAL_BIN}  > /dev/null
+then
+	echo "PATH already contains '${MIKO_LOCAL_BIN}'. No need to add."
+else
+	echo "Adding ${MIKO_LOCAL_BIN} to PATH."
+	export PATH=${MIKO_LOCAL_BIN}:${PATH}
+fi
+
 # Functions ###################################################################
 
 AUTO=~/auto
