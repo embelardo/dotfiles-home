@@ -111,6 +111,10 @@ export BAT_THEME="Solarized (dark)"
 
 export GIT_PAGER="cat"
 
+# Brew ########################################################################
+
+export HOMEBREW_GITHUB_API_TOKEN=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
+
 # iTerm2 ######################################################################
 
 #source ~/.iterm2_shell_integration.zsh
