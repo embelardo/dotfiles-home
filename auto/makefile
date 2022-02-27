@@ -152,12 +152,12 @@ sh.clear.scrollback: ## Clear screen and reset scrollback
 	@clear
 	@printf '\e[3J'
 
-# Depends on cloud-drive being available.
+# Depends on cloud (google drive) folder being available.
 sh.create.links: ## Create cloud links
-	ln -s ~/cloud-drive/stationhome/jrnl ~/jrnl
-	ln -s ~/cloud-drive/stationhome/doc ~/doc
-	ln -s ~/cloud-drive/stationhome/pluralsight ~/pluralsight
-	ln -s ~/cloud-drive/stationhome/workspaces ~/workspaces
+	ln -s ~/cloud/stationhome/jrnl ~/jrnl
+	ln -s ~/cloud/stationhome/doc ~/doc
+	ln -s ~/cloud/stationhome/pluralsight ~/pluralsight
+	ln -s ~/cloud/stationhome/workspaces ~/workspaces
 
 .PHONY: sh.cal sh.clear sh.clear.scrollback sh.create.links
 
