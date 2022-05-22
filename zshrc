@@ -1,7 +1,7 @@
 # Zsh Init ####################################################################
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/miko/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -9,7 +9,7 @@ export ZSH="/Users/miko/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 
-source /Users/miko/.zshrc_theme
+source $HOME/.zshrc_theme
 
 plugins=(
     aliases                  # List available aliases grouped by plugin.
