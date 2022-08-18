@@ -97,49 +97,6 @@ git.status: ## Git status
 .PHONY: git.push.force git.rebase.continue git.rebase.interactive
 .PHONY: git.remote.show.origin git.restore.staged git.stash git.stash.pop git.status
 
-# Jrnl ########################################################################
-
-j.edit: ## Edit journal (arg: name)
-	jrnl $(name) --edit
-
-j.list: ## List journals
-	jrnl --list
-
-j.search: ## Search journal by text (arg: text)
-	jrnl -contains $(text)
-
-j.show: ## Show journal from beginning (arg: name)
-	jrnl $(name) -to today
-
-j.show.done: sh.clear.scrollback ## Show tasks done (arg: name)
-ifdef name
-	@jrnl $(name) -contains ✓
-else
-	@jrnl -contains ✓
-endif
-	@echo
-	@ncal -w -A 2
-
-j.show.todo: sh.clear.scrollback ## Show tasks todo (arg: name)
-ifdef name
-	@jrnl $(name) @todo
-else
-	@jrnl @todo
-endif
-	@echo
-	@ncal -w -A 2
-
-j.tags.filter: sh.clear.scrollback ## Filter journal by tag (arg: name, tags)
-	@jrnl $(name) $(tags)
-	@echo
-	@ncal -w -A 2
-
-j.tags.list: ## List tags in journal (arg: name)
-	jrnl $(name) --tags
-
-.PHONY: j.edit j.list j.search j.show j.show.done j.show.todo j.tags.filter
-.PHONY: j.tags.list 
-
 # Shell #######################################################################
 
 sh.cal: ## Show 2022 Calendar

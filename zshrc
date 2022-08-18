@@ -68,7 +68,7 @@ alias hw='fc -W'
 alias linkm='ln -s ~/auto/makefile makefile'
 alias m='make'
 
-alias szshrc="source ${ZSHRC}"
+alias szrc="source ${ZSHRC}"
 
 # History #####################################################################
 
@@ -105,7 +105,11 @@ source ~/.bash_completion.d/compleat_setup
 
 # Bat #########################################################################
 
-export BAT_THEME="Solarized (dark)"
+if [ `uname -s` = "Linux" ]; then
+    alias bat='batcat'
+fi
+
+#export BAT_THEME="Solarized (dark)"
 
 # Git #########################################################################
 
@@ -113,7 +117,9 @@ export GIT_PAGER="cat"
 
 # Brew ########################################################################
 
-export HOMEBREW_GITHUB_API_TOKEN=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
+if [ `uname -s` = "Darwin" ]; then
+    export HOMEBREW_GITHUB_API_TOKEN=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
+fi
 
 # iTerm2 ######################################################################
 
