@@ -16,7 +16,7 @@ git.add.all: ## Git add all
 git.branch.show: ## Git show all branches
 	git branch -a
 
-git.commit: ## Git commit (arg: msg)
+git.commit: ## Git commit (arg: msg="abc")
 	git commit --message '$(msg)'
 
 git.commit.amend: ## Git commit amend
@@ -26,21 +26,21 @@ git.commit.amend.push: ## Git commit amend and push force
 	GIT_COMMITTER_DATE="$(shell date)" git commit --amend --date "$(shell date)"
 	git push --force-with-lease
 
-git.commit.push: ## Git commit and push (arg: msg)
+git.commit.push: ## Git commit and push (arg: msg="abc")
 	git commit --message '$(msg)'
 	git push
 
 git.diff: sh.clear ## Git diff
 	git diff
 
-git.log.graph: sh.clear ## Git log graph (arg: limit)
+git.log.graph: sh.clear ## Git log graph (arg: limit=[n])
 ifdef limit
 	git log --graph --max-count $(limit)
 else
 	git log --graph
 endif
 
-git.log.short: sh.clear ## Git log one-liners (+ time and author) (arg: limit)
+git.log.short: sh.clear ## Git log one-liners (+ time and author) (arg: limit=[n])
 ifdef limit
 	git log --graph \
 	--pretty='%Cred%h%Creset - %s %Cgreen(%ar)%C(bold blue)<%an>%Creset%C(auto)%d%Creset' \
