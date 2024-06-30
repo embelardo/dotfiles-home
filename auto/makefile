@@ -99,9 +99,6 @@ git.status: ## Git status
 
 # Shell #######################################################################
 
-sh.cal: ## Show 2022 Calendar
-	ncal -w 2022
-
 sh.clear: ## Clear screen
 	@clear
 
@@ -116,6 +113,6 @@ sh.create.links: ## Create cloud links
 	ln -s ~/cloud/stationhome/pluralsight ~/pluralsight
 	ln -s ~/cloud/stationhome/workspaces ~/workspaces
 
-.PHONY: sh.cal sh.clear sh.clear.scrollback sh.create.links
+.PHONY: sh.clear sh.clear.scrollback sh.create.links
 
 # eof #########################################################################
