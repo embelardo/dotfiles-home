@@ -65,10 +65,10 @@ alias af='alias-finder --longer'
 alias h='history -t "%Y.%m.%d %H:%M:%S"'
 alias hr='fc -R'
 alias hw='fc -W'
-alias linkm='ln -s ~/auto/makefile makefile'
+alias linkm='ln -s ~/dev/dotfiles-home/auto/makefile makefile'
 alias m='make'
 
-alias szshrc="source ${ZSHRC}"
+alias szsh="source ${ZSHRC}"
 
 # History #####################################################################
 
@@ -101,11 +101,15 @@ autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
 
-source ~/.bash_completion.d/compleat_setup
+source ~/.local/share/bash-completion/completions/compleat_setup
 
 # Bat #########################################################################
 
-export BAT_THEME="Solarized (dark)"
+if [ `uname -s` = "Linux" ]; then
+    alias bat='batcat'
+fi
+
+#export BAT_THEME="Solarized (dark)"
 
 # Git #########################################################################
 
