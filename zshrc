@@ -119,6 +119,12 @@ export GIT_PAGER="cat"
 
 #source ~/.iterm2_shell_integration.zsh
 
+# Python ######################################################################
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 # Sdkman ######################################################################
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -134,6 +140,15 @@ then
 else
 	echo "Adding ${MIKO_LOCAL_BIN} to PATH."
 	export PATH=${MIKO_LOCAL_BIN}:${PATH}
+fi
+
+GOLANG_BIN=/usr/local/go/bin
+if echo ${PATH} | grep ${GOLANG_BIN}  > /dev/null
+then
+	echo "PATH already contains '${GOLANG_BIN}'. No need to add."
+else
+	echo "Adding ${GOLANG_BIN} to PATH."
+	export PATH=${GOLANG_BIN}:${PATH}
 fi
 
 # Functions ###################################################################
