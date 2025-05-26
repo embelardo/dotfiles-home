@@ -105,9 +105,9 @@ source ~/.local/share/bash-completion/completions/compleat_setup
 
 # Bat #########################################################################
 
-if [ `uname -s` = "Linux" ]; then
-    alias bat='batcat'
-fi
+#if [ `uname -s` = "Linux" ]; then
+#    alias bat='batcat'
+#fi
 
 #export BAT_THEME="Solarized (dark)"
 
@@ -121,9 +121,14 @@ export GIT_PAGER="cat"
 
 # Python ######################################################################
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+PYENV_ROOT="$HOME/.pyenv"
+if [[ -d $PYENV_ROOT/bin ]];
+then
+    echo "Adding ${PYENV_ROOT} to PATH."
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    export PYENV_ROOT
+    eval "$(pyenv init -)"
+fi
 
 # Sdkman ######################################################################
 
@@ -136,19 +141,44 @@ export SDKMAN_DIR="$HOME/.sdkman"
 MIKO_LOCAL_BIN=~/.local/bin
 if echo ${PATH} | grep ${MIKO_LOCAL_BIN}  > /dev/null
 then
-	echo "PATH already contains '${MIKO_LOCAL_BIN}'. No need to add."
+    echo "PATH already contains '${MIKO_LOCAL_BIN}'. No need to add."
 else
-	echo "Adding ${MIKO_LOCAL_BIN} to PATH."
-	export PATH=${MIKO_LOCAL_BIN}:${PATH}
+    echo "Adding ${MIKO_LOCAL_BIN} to PATH."
+    export PATH=${MIKO_LOCAL_BIN}:${PATH}
 fi
 
 GOLANG_BIN=/usr/local/go/bin
 if echo ${PATH} | grep ${GOLANG_BIN}  > /dev/null
 then
-	echo "PATH already contains '${GOLANG_BIN}'. No need to add."
+    echo "PATH already contains '${GOLANG_BIN}'. No need to add."
 else
-	echo "Adding ${GOLANG_BIN} to PATH."
-	export PATH=${GOLANG_BIN}:${PATH}
+    echo "Adding ${GOLANG_BIN} to PATH."
+    export PATH=${GOLANG_BIN}:${PATH}
+fi
+
+RUSTUP_FOLDER=~/.rustup
+if [ -d "${RUSTUP_FOLDER}" ];
+then
+    echo "Folder ${RUSTUP_FOLDER} exists. Sourcing Rust environment."
+    source "$HOME/.cargo/env"
+fi
+
+SCALA_BIN=~/.local/share/coursier/bin
+if echo ${PATH} | grep ${SCALA_BIN}  > /dev/null
+then
+    echo "PATH already contains '${SCALA_BIN}'. No need to add."
+else
+    echo "Adding ${SCALA_BIN} to PATH."
+    export PATH=${SCALA_BIN}:${PATH}
+fi
+
+DART_PATH=/opt/dart/dart-sdk/bin
+if echo ${PATH} | grep ${DART_PATH}  > /dev/null
+then
+    echo "PATH already contains '${DART_PATH}'. No need to add."
+else
+    echo "Adding ${DART_PATH} to PATH."
+    export PATH=${DART_PATH}:${PATH}
 fi
 
 # Functions ###################################################################
