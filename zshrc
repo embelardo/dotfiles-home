@@ -124,10 +124,15 @@ export GIT_PAGER="cat"
 PYENV_ROOT="$HOME/.pyenv"
 if [[ -d $PYENV_ROOT/bin ]];
 then
-    echo "Adding ${PYENV_ROOT} to PATH."
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    export PYENV_ROOT
-    eval "$(pyenv init -)"
+    if echo ${PATH} | grep ${PYENV_ROOT}/bin  > /dev/null
+    then
+        echo "PATH already contains '${PYENV_ROOT}/bin'. No need to add."
+    else
+        echo "Adding ${PYENV_ROOT}/bin to PATH."
+        export PATH="$PYENV_ROOT/bin:$PATH"
+        export PYENV_ROOT
+        eval "$(pyenv init -)"
+    fi
 fi
 
 # Sdkman ######################################################################
@@ -179,6 +184,14 @@ then
 else
     echo "Adding ${DART_PATH} to PATH."
     export PATH=${DART_PATH}:${PATH}
+fi
+
+RBENV_FOLDER=~/.rbenv
+if [ -d "${RBENV_FOLDER}" ];
+then
+    echo "Folder ${RBENV_FOLDER} exists. Sourcing rbenv."
+    export PATH="${RBENV_FOLDER}/bin:$PATH"
+    eval "$(rbenv init -)"
 fi
 
 # Functions ###################################################################
@@ -249,4 +262,10 @@ init-home () {
     fi
 }
 
-# eof #########################################################################
+# nvm #########################################################################
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# eof
