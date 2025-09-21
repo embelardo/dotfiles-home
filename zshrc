@@ -141,6 +141,25 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# Scala CLI ###################################################################
+
+SCALA_VERSION="1.9.1"
+SCALACLI_HOME="$HOME/.sdkman/candidates/scalacli/${SCALA_VERSION}"
+if [[ -d $SCALACLI_HOME/bin ]];
+then
+    if echo ${PATH} | grep ${SCALACLI_HOME}/bin  > /dev/null
+    then
+        echo "PATH already contains '${SCALACLI_HOME}/bin'. No need to add."
+    else
+        echo "Adding ${SCALACLI_HOME}/bin to PATH."
+        # Add Scala CLI to PATH.
+        export PATH="$SCALACLI_HOME/bin:$PATH"
+        # Enable Scala CLI completions.
+        fpath=("/home/miko/.local/share/scalacli/completions/zsh" $fpath)
+        compinit
+    fi
+fi
+
 # PATH ########################################################################
 
 MIKO_LOCAL_BIN=~/.local/bin
