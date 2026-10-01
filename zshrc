@@ -18,6 +18,7 @@ plugins=(
     dirhistory               # Add shortcuts to navigate folder history and hierarchy.
     git                      # Add git aliases and functions.
     gradle                   # Add completions and aliases for Gradle.
+    ssh-agent                # Start ssh-agent and load default SSH keys.
     zsh-autosuggestions      # Fish-like fast/unobtrusive autosuggestions for zsh.
     zsh-syntax-highlighting  # Fish-like syntax highlighting for zsh.
 )
@@ -28,6 +29,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Colorize (ccat, cless)
 ZSH_COLORIZE_STYLE="solarized-dark"
+
+# Copilot CLI #################################################################
+
+HOME_DIR=/home/miko
+export COPILOT_CUSTOM_INSTRUCTIONS_DIRS="${HOME_DIR}/.copilot/instructions"
 
 # Aliases #####################################################################
 
@@ -45,6 +51,8 @@ alias bbb='cd ../../..'
 alias bbbb='cd ../../../..'
 alias bbbbb='cd ../../../../..'
 
+alias agentc='cd ~/dev/agent-collab'
+alias agenti='cd ~/dev/agent-instructions'
 alias auto='cd ~/auto'
 alias dev='cd ~/dev'
 alias doc='cd ~/doc'
@@ -212,6 +220,9 @@ then
     export PATH="${RBENV_FOLDER}/bin:$PATH"
     eval "$(rbenv init -)"
 fi
+
+echo "Sourcing SSH Agent startup script."
+source ${DOTFILES}/zshrc_start_ssh_agent.sh
 
 # Functions ###################################################################
 
